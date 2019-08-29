@@ -5,8 +5,8 @@
         <mt-button type="primary" size="large">按钮</mt-button>
         <mt-button type="danger" size="normal" @click="show()">按钮</mt-button>
 
-
-
+        <mybtn>自定义按钮</mybtn>
+        <button type="button" class="mui-btn mui-btn-royal">紫色</button>
     </div>
 
 
