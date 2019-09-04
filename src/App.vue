@@ -1,9 +1,11 @@
 <template>
     <div class="app-container">
-        <h1>APP组件</h1>
         <!-- 顶部 Header 区域 -->
         <mt-header fixed title="商城"></mt-header>
-        <router-view></router-view>
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+
         <!-- 底部 Tabbar 区域 -->
         <nav class="mui-bar mui-bar-tab">
             <router-link class="mui-tab-item" to="/home">
@@ -33,5 +35,21 @@
 <style>
     .app-container {
         padding-top: 40px;
+        overflow-x: hidden;
     }
+
+    .v-enter{
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    .v-leave-to{
+        opacity: 0;
+        transform: translateX(-100%);
+        position: absolute;
+    }
+    .v-enter-active,
+    .v-leave-active{
+        transition: all 0.5s ease;
+    }
+
 </style>
