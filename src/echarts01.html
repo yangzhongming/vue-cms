@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/echarts.min.js"></script>
+</head>
+<body>
+
+<div id="container">
+    <div id="header" style="text-align: center"><h3>数据统计示例</h3></div>
+    <div id="main" style="width: 600px;height:400px; float: left"></div>
+    <div id="province" style="width: 600px;height:400px;float: left"></div>
+</div>
+
+</body>
+<script>
+    <!--按区域统计-->
+    var mychart = echarts.init(document.getElementById('main'));
+    var option = {
+        title: {
+            text: '数据统计'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["华北","东北","华东","华南","华中","西南","西北"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20,25]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    mychart.setOption(option);
+
+    <!--按省份统计-->
+    var province = echarts.init(document.getElementById('province'));
+
+    var provinceOption = {
+        title: {
+            text: '数据统计'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["华北","东北","华东","华南","华中","西南","西北"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20,25]
+        }]
+    };
+    province.setOption(provinceOption)
+</script>
+</html>
