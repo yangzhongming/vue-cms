@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--step1:引入echarts.js-->
+    <script src="js/echarts.min.js"></script>
+</head>
+<body>
+<!--step2:用于渲染图表的div-->
+<div id="main" style="width: 600px;height:400px; float: left"></div>
+
+</body>
+<script>
+    <!--step3:初始化echarts图表 -->
+    var mychart = echarts.init(document.getElementById('main'));
+    <!--step4:构建图表-->
+    var option = {
+        title: {
+            text: '某地区蒸发量和降水量',
+            //标题的位置：left|center|right|number类型
+            //3.0以上版本，x属性改为left
+            x:'center',
+            //设置图表标题背景色
+            backgroundColor:'#000000',
+            textStyle:{
+                //设置图表标题字体颜色
+                color:'#ffffff',
+                fontWeight:'bold',
+            },
+            //设置副标题
+            subtext: '测试样例',
+            borderWidth:4,
+            borderColor:'red'
+        },
+        tooltip: {
+            // trigger不填写的情况，默认设置为item:鼠标放在图表上才有提示
+            // axis:x轴上加上垂直线
+            trigger: 'axis'
+        },
+        legend: {
+            //data值必须与series中的name保持一致
+            data: ['蒸发量','降水量']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                //数据视图
+                dataView: {show: true, readOnly: false},
+                //显示为折线图和柱状图
+                magicType: {show: true, type: ['line', 'bar']},
+                //数据刷新
+                restore: {show: true},
+                //保存为图片
+                saveAsImage: {show: true}
+            }
+        },
+        //实现图片控件的拖拽功能
+        calculable: true,
+        xAxis: {
+            type: "category",
+            data: ["华北", "东北", "华东", "华南", "华中", "西南", "西北"]
+        },
+        yAxis: {
+            type: "value"
+        },
+        series: [
+             {
+            name: '蒸发量',
+                 // bar:表示柱状图 line:表示线状图
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20, 25]
+             },
+            {
+                name: '降水量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20, 56]
+            }
+        ]
+    };
+
+    <!--step5:在Dom中渲染图表-->
+    mychart.setOption(option);
+
+</script>
+</html>
