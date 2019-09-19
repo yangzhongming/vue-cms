@@ -53,7 +53,10 @@
         },
         methods:{
             getLunbotu(){
-                this.$http.get("http://127.0.0.1:31001/cms/page/list/1/3").then(result => {
+                // 因main.js中配置了全局变量，以下地址可改写为
+                //http://127.0.0.1:31001/cms/page/list/1/3->page/list/1/3
+                //注：vue-resource前面不能用/
+                this.$http.get("page/list/1/3").then(result => {
                     console.log(result.body)
                     if(result.body.status===0){
                         this.lunbotuList = result.body.message()

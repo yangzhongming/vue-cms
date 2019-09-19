@@ -24,6 +24,17 @@ import router from './router.js'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
+//9.配置全局变量，必须放在vue-resource后面
+Vue.http.options.root = 'http://127.0.0.1:31001/cms/';
+
+//导入时间处理插件
+import moment from 'moment'
+//10.定义全局过滤器用来解决时间格式问题
+Vue.filter('dateFormat',function (dataStr, pattern = 'yyyy-MM-DD HH:mm:ss') {
+    //使用node.js中的moment解决,npm install moment -S
+    return moment(dataStr).format(pattern)
+})
+
 var vm = new Vue({
     el:'#app',
     render:c => c(app),

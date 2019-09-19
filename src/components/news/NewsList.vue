@@ -15,30 +15,48 @@
                     </div>
                 </a>
             </li>
-            <li class="mui-table-view-cell mui-media">
-                <a href="javascript:;">
+            <li class="mui-table-view-cell mui-media" v-for="item in newsLists" :key="item.id">
+                <router-link :to="'/home/newsinfo/' + item.id">
                     <img class="mui-media-object mui-pull-left" src="https://avatars1.githubusercontent.com/u/31881269?s=60&v=4">
                     <div class="mui-media-body">
-                        木屋
-                        <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+                        <h1>{{item.title}}</h1>
+                        <p class='mui-ellipsis'>
+                            <!--item.对应后台接口的字符串变量,此处未实现后台-->
+                            <!--通过管道方式调用格式化-->
+                            <span>发布时间：{{item.add_time | dateFormat }}</span>
+                            <span>点击次数：{{item.count}}</span>
+                        </p>
                     </div>
-                </a>
+                </router-link>
             </li>
-            <li class="mui-table-view-cell mui-media">
-                <a href="javascript:;">
-                    <img class="mui-media-object mui-pull-left" src="https://avatars1.githubusercontent.com/u/31881269?s=60&v=4">
-                    <div class="mui-media-body">
-                        CBD
-                        <p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-                    </div>
-                </a>
-            </li>
+
 
         </ul>
     </div>
 </template>
 <script>
-
+    import {Toast} from 'mint-ui'
+    export default {
+        data(){
+            return {
+                newsLists:[]
+            }
+        },
+        created(){
+            this.getNewsLists();
+        },
+        methods:{
+            getNewsLists(){
+                this.$http.get('page/list/1/3').then(result =>{
+                    if(result.body.status==0){
+                        this.newsLists = result.body.message;
+                    }else{
+                        Toast('获取新闻列表失败...')
+                    }
+                })
+            }
+        }
+    }
 </script>
 <style lang="scss" scoped>
 .mui-table-view{
