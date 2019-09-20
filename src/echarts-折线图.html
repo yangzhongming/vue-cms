@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--step1:引入echarts.js-->
+    <script src="js/echarts.min.js"></script>
+</head>
+<body>
+
+<div id="main" style="width: 600px;height:400px; float: left"></div>
+
+</body>
+<script>
+
+    var mychart = echarts.init(document.getElementById('main'));
+
+    var option = {
+        title: {
+            text: '未来一周气温变化',
+            subtext: '测试样例',
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['最高气温','最低气温']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                //数据视图
+                dataView: {show: true, readOnly: false},
+                //显示为折线图和柱状图
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        //实现图片控件的拖拽功能
+        calculable: true,
+        xAxis: {
+            type: "category",
+            boundary:false,
+            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        },
+        yAxis: {
+            type: "value",
+            axisLabel:{
+                formatter:'{value} ℃'
+            }
+        },
+        series: [
+             {
+            name: '蒸发量',
+                 // bar:表示柱状图 line:表示线状图
+            type: 'line',
+            data: [15.5, 20.1, 36.1, 10.5, 10.6, 20.4, 25]
+             },
+            {
+                name: '最高气温',
+                //bar:柱状图 line:折线图
+                type: 'line',
+                data: [5.3, -20, 30.2, 10.4, 11.5, 20.9, 56]
+            }
+        ]
+    };
+
+    <!--step5:在Dom中渲染图表-->
+    mychart.setOption(option);
+
+</script>
+</html>
