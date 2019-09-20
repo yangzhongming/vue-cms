@@ -24,44 +24,141 @@
             trigger: 'axis'
         },
         legend: {
-            data: ['最高气温','最低气温']
+            data: ['最高气温', '最低气温']
         },
+        //工具箱的设置
         toolbox: {
             show: true,
+            //布局方式，默认为水平布局，可选为horizontal|vertical
+            orient: 'horizontal',
+            //left的值可以为像素或百分比，也可以是left|center|right
+            left: 'right',
+            //top的值可以为像素或百分比，也可以是top|middle|bottom
+            color: [],
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: 'red',
+            borderWidth: 0,
+            padding: 5,
+            showTitle: true,
             feature: {
+                mark: {
+                    show: true,
+                    title: {
+                        mark: '辅助线-开关',
+                        markUndo: '辅助线-删除',
+                        markClear: '辅助线-清空'
+                    },
+                    lineStyle: {
+                        width: 1,
+                        color: 'red',
+                        type: 'dashed'
+                    },
+                    dataZoom: {
+                        show: true,
+                        title: {
+                            dataZoom: '区域缩放',
+                            dataZoomReset: '区域缩放回退'
+                        }
+                    }
+                },
                 //数据视图
-                dataView: {show: true, readOnly: false},
+                dataView: {
+                    show: true,
+                    title: '数据视图1',
+                    readOnly: false,
+                    lang: ['数据视图1', '关闭1', '刷新1'],
+                    //数据视图以表格形式显示
+                    optionToContent: function (opt) {
+                        console.log(opt);
+                        var axisData = opt.xAxis[0].data;
+                        var series = opt.series;
+                        var table = ' <table style="width: 100%;text-align: center"><tbody><tr>'
+                            + '<td>时间</td>'
+                            + '<td>' + series[0].name + '</td>'
+                            + '<td>' + series[1].name + '</td>'
+                            + '</tr>';
+                        for (var i = 0, l = axisData.length; i < l; i++) {
+                            table += '<tr>'
+                                + '<td>' + axisData[i] + '</td>'
+                                + '<td>' + series[0].data[i] + '</td>'
+                                + '<td>' + series[1].data[i] + '</td>'
+                                + '</tr>'
+                        }
+                        table += '</tbody></table>'
+                        return table
+                    }
+                },
                 //显示为折线图和柱状图
                 magicType: {show: true, type: ['line', 'bar']},
-                restore: {show: true},
-                saveAsImage: {show: true}
+                restore: {
+                    show: true,
+                    title: '还原',
+                    color: 'red'
+                },
+                saveAsImage: {
+                    show: true,
+                    title: '保存为图片',
+                    type: 'jpeg',
+                    lang: ['点击本地保存']
+                }
             }
+        },
+        //数据区域缩放，水平缩放或拉伸
+        dataZoom: {
+            show: true,
+            //缩放变化是否实时
+            realtime: true,
+            //缩放起始位置，为百分比
+            start: 20,
+            end: 80
         },
         //实现图片控件的拖拽功能
         calculable: true,
         xAxis: {
+            //X轴默认设置为类别
             type: "category",
-            boundary:false,
-            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+            //默认设置为false,表示数据开始结束两端留出一定空白间隔
+            boundary: false,
+            data: function () {
+                var list = [];
+                for (var i = 1; i <= 30; i++) {
+                    list.push('2019-09-' + i)
+                }
+                return list;
+            }()
         },
         yAxis: {
             type: "value",
-            axisLabel:{
-                formatter:'{value} ℃'
+            axisLabel: {
+                formatter: '{value} ℃'
             }
         },
         series: [
-             {
-            name: '蒸发量',
-                 // bar:表示柱状图 line:表示线状图
-            type: 'line',
-            data: [15.5, 20.1, 36.1, 10.5, 10.6, 20.4, 25]
-             },
             {
                 name: '最高气温',
+                // bar:表示柱状图 line:表示线状图
+                type: 'line',
+                data: function () {
+
+                    var list = [];
+                    for (var i = 1; i <= 30; i++) {
+                        list.push(Math.random() * 30)
+                    }
+                    return list;
+                }()
+            },
+            {
+                name: '最低气温',
                 //bar:柱状图 line:折线图
                 type: 'line',
-                data: [5.3, -20, 30.2, 10.4, 11.5, 20.9, 56]
+                data: function () {
+
+                    var list = [];
+                    for (var i = 1; i <= 30; i++) {
+                        list.push(Math.random() * 10)
+                    }
+                    return list;
+                }()
             }
         ]
     };
