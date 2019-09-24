@@ -8,9 +8,11 @@
 <body>
 
 <div id="container">
-    <div id="header" style="text-align: center"><h3>数据统计示例</h3></div>
+    <div id="header" style="text-align:center;margin: auto "><h3>SLIM数据统计示例</h3>
     <div id="main" style="width: 600px;height:400px; float: left"></div>
-    <div id="province" style="width: 600px;height:400px;float: left"></div>
+    <div id="province" style="width: 600px;height:400px;float: right"></div>
+    </div>
+
 </div>
 
 </body>
@@ -19,21 +21,25 @@
     var mychart = echarts.init(document.getElementById('main'));
     var option = {
         title: {
-            text: '数据统计'
+            text: '销售计划'
         },
         tooltip: {},
         legend: {
-            data:['销量']
+            data:['计划','实际']
         },
         xAxis: {
             data: ["华北","东北","华东","华南","华中","西南","西北"]
         },
         yAxis: {},
         series: [{
-            name: '销量',
+            name: '计划',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20,25]
-        }]
+            data: [7202, 5500, 5597, 13611, 5485, 3923,2762]
+        },{
+            name: '实际',
+            type: 'bar',
+            data: [6518, 4144, 5008, 10507, 4618, 3535,2265]
+        },]
     };
 
     // 使用刚指定的配置项和数据显示图表。
@@ -44,20 +50,24 @@
 
     var provinceOption = {
         title: {
-            text: '数据统计'
+            text: '请款入金'
         },
         tooltip: {},
         legend: {
-            data:['销量']
+            data:['请求台数','入金台数']
         },
         xAxis: {
             data: ["华北","东北","华东","华南","华中","西南","西北"]
         },
         yAxis: {},
         series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20,25]
+            name: '请求台数',
+            type: 'line',
+            data: [15, 20, 36, 10, 10, 20,25]
+        },{
+            name: '入金台数',
+            type: 'line',
+            data: [5, 8, 23, 6, 7, 25,15]
         }]
     };
     province.setOption(provinceOption)
