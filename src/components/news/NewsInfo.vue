@@ -7,13 +7,16 @@
             <span>点击次数：0次</span>
         </p>
         <hr>
+        <!--内容区域-->
         <div  class="content" v-html="newsinfo.content">
-
+        <!--评论区域-->
         </div>
     </div>
 
 </template>
 <script>
+    // 导入评论子组件
+    import comment from '../subcomponents/comment.vue'
     export  default {
         data(){
             return {id:this.route.params.id,
@@ -34,6 +37,10 @@
                     }
                 })
             }
+        },
+        components:{
+            // 注册子组件
+            "comment-box":comment
         }
     }
 </script>
